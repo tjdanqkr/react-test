@@ -1,3 +1,4 @@
+import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 type Method = "GET" | "POST" | "PUT" | "DELETE";
 type Url = string;
@@ -26,4 +27,11 @@ export type Board = {
 };
 export type BoardRequest = {
   title: string;
+};
+export const useBoard = () => {
+  return useQuery({
+    queryKey: ["board/all"],
+    queryFn: getBoard,
+    initialData: [],
+  });
 };
