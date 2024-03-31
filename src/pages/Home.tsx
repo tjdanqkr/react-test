@@ -1,14 +1,16 @@
 import { useRecoilValue } from "recoil";
-import { textState } from "../store/Text";
+import { meState } from "../store";
+import H1 from "../atom/H1";
+import Article from "../atom/Article";
 
 const Home = () => {
-  const text = useRecoilValue(textState);
+  const id = useRecoilValue(meState);
   return (
-    <div>
-      <h1>{text}</h1>
-      <h1>Home</h1>
+    <Article>
+      <H1>{id}</H1>
+      <H1>Home</H1>
       <p>This is the home page.</p>
-    </div>
+    </Article>
   );
 };
 export default Home;

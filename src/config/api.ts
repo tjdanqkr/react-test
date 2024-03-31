@@ -1,33 +1,23 @@
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
+import { getBoard } from "./board";
 type Method = "GET" | "POST" | "PUT" | "DELETE";
 type Url = string;
 type Body = object;
 export const api = async (url: Url, method: Method, body?: Body) => {
-  axios.defaults.baseURL = "http://localhost:3000";
+  axios.defaults.baseURL = "http://localhost:4000";
+  const id = localStorage.getItem("id");
   const data = await axios({
     method: method,
     url: url,
     data: body,
+    headers: {
+      Authorization: id,
+    },
   });
   return data;
 };
 
-export const getBoard = async (): Promise<Board[]> => {
-  const { data } = await api("/board", "GET");
-  return data;
-};
-export const postBoard = async (board: BoardRequest) => {
-  const data = await api("/board", "POST", board);
-  return data;
-};
-export type Board = {
-  id: number;
-  title: string;
-};
-export type BoardRequest = {
-  title: string;
-};
 export const useBoard = () => {
   return useQuery({
     queryKey: ["board/all"],
